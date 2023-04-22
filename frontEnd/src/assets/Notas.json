@@ -1,0 +1,26 @@
+{
+  "id": "1",
+  "numero":"1",
+  "data":"03/02/2023",
+  "valor":"255",
+  "cliente":
+  {
+    "id": "1",
+    "codigo":"1",
+    "nome":"jao"
+  },
+  "item":
+  {
+    "id": "1",
+    "numero":"1",
+    "produtos":
+    {
+      "id": "1",
+      "codigo":"1",
+      "descricao":"um produto qualquer",
+      "valor":"12"
+    },
+    "quantidade":"2",
+    "valor":"200"
+  }
+}

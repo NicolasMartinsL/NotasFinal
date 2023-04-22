@@ -1,0 +1,14 @@
+<dx-select-box [items]="estados"
+               displayExpr="nome"
+               (onValueChanged)="selecionarEstado($event)"
+               [(value)]="estado"
+               ></dx-select-box>
+
+
+<dx-select-box [items]="cidades"
+               displayExpr="nome"
+               [(value)]="cidade"
+               (onValueChanged)="selecionarCidade($event)"
+               ></dx-select-box>
+
+

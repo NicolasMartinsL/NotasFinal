@@ -1,0 +1,26 @@
+<p>nota fiscal</p>
+<br>
+<h1>Cadastro de Notas Fiscais</h1>
+<dx-text-box placeholder="Numero"></dx-text-box>
+<br>
+<dx-text-box placeholder="Data"></dx-text-box>
+<br>
+<dx-text-box placeholder="Valor"></dx-text-box>
+<br>
+<dx-text-box placeholder="Cliente"></dx-text-box>
+<br>
+<dx-text-box placeholder="Item"></dx-text-box>
+<br>
+<dx-button text="Enviar" width="100%"></dx-button>
+<br>
+<br>
+<br>
+<br>
+<br>
+<dx-list
+  [dataSource]="notas"
+  displayExpr="numero">
+</dx-list>
+<dx-button text="Modificar" width="50%"></dx-button>
+<dx-button text="Deletar" width="50%"></dx-button>
+<!--Criar clientes novos, Ler clientes existentes, Modificar dados de clientes existentes, Deletar clientes existentes-->
