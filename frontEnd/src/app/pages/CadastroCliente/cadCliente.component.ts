@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ClientesService} from "../../shared/services/servicos/clientes.service";
+import {ClienteService} from "../../shared/services/servicos/cliente.service";
 import {Cliente} from "../../model/cliente";
 
 @Component({
@@ -11,13 +11,11 @@ import {Cliente} from "../../model/cliente";
 export class CadClienteComponent implements OnInit{
 
   clientes: Cliente[] = [];
-  constructor(private service: ClientesService) {
-  }
+  constructor(private service: ClienteService) {}
 
   ngOnInit() {
     this.service.getClientes().subscribe(dados => {
       this.clientes = dados;
-      debugger
     });
   }
 

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {LojaService} from "../../shared/services/loja.service";
+import {Component, OnInit} from '@angular/core';
+import {NotaFiscalService} from "../../shared/services/servicos/notafiscal.service";
 import {Nota} from "../../model/nota";
 
 @Component({
@@ -8,13 +8,14 @@ import {Nota} from "../../model/nota";
   styleUrls: [ './cadNotaFiscal.component.scss' ]
 })
 
-export class CadNotaFiscalComponent {
+export class CadNotaFiscalComponent implements OnInit{
 
   notas: Nota[] = [];
-  constructor(private service: LojaService) {
-    this.service.getNotas().subscribe(dados => {
-       this.notas = dados;
-     });
-  }
+  constructor(private service: NotaFiscalService) {}
 
+  ngOnInit() {
+    this.service.getNotas().subscribe(dados => {
+      this.notas = dados;
+    });
+  }
 }

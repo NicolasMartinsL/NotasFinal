@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {LojaService} from "../../shared/services/loja.service";
+import {Component, OnInit} from '@angular/core';
+import {ProdutoService} from "../../shared/services/servicos/produto.service";
 import {Produto} from "../../model/produto";
 
 @Component({
@@ -8,11 +8,14 @@ import {Produto} from "../../model/produto";
   styleUrls: [ './cadProduto.component.scss' ]
 })
 
-export class CadProdutoComponent {
+export class CadProdutoComponent implements OnInit{
 
   produtos: Produto[] = [];
-    constructor(private service: LojaService) {
-      this.produtos = service.getProducts();
-    }
+    constructor(private service: ProdutoService) {}
 
+  ngOnInit() {
+    this.service.getProdutos().subscribe(dados => {
+      this.produtos = dados;
+    });
+  }
 }
