@@ -1,6 +1,7 @@
-<p>cliente</p>
+<h1>Clientes</h1>
 <br>
-<h1>Cadastro de Cliente</h1>
+<h2>Cadastro de Cliente</h2>
+<!--
 <dx-text-box placeholder="Codigo"></dx-text-box>
 <br>
 <dx-text-box placeholder="Nome"></dx-text-box>
@@ -11,12 +12,18 @@
 <br>
 <br>
 <br>
-<!--<dx-scroll-view></dx-scroll-view>///<dx-form></dx-form>-->
-<dx-list></dx-list>
+-->
 <dx-data-grid
-  [dataSource]="clientes"
-  displayExpr="nome">
+  [dataSource]="clientes">
+  <dxo-editing
+    mode="popup"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="true">
+  </dxo-editing>
 </dx-data-grid>
+<!--
 <dx-button text="Deletar" width="50%"></dx-button>
 <dx-button text="Modificar" width="50%"></dx-button>
-<!--Criar clientes novos, Ler clientes existentes, Modificar dados de clientes existentes, Deletar clientes existentes-->
+-->
+

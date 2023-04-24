@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {LojaService} from "../../shared/services/loja.service";
+import {Component, OnInit} from '@angular/core';
+import {ClientesService} from "../../shared/services/servicos/clientes.service";
 import {Cliente} from "../../model/cliente";
 
 @Component({
@@ -8,11 +8,17 @@ import {Cliente} from "../../model/cliente";
   styleUrls: [ './cadCliente.component.scss' ]
 })
 
-export class CadClienteComponent {
-  constructor(private service: LojaService) {
-  }
-  jsonC: string = 'src/assets/Clientes.json';
+export class CadClienteComponent implements OnInit{
+
   clientes: Cliente[] = [];
-  cliente2? : Cliente = new Cliente();
+  constructor(private service: ClientesService) {
+  }
+
+  ngOnInit() {
+    this.service.getClientes().subscribe(dados => {
+      this.clientes = dados;
+      debugger
+    });
+  }
 
 }
