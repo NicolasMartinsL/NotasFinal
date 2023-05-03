@@ -1,29 +1,29 @@
 <h1>Clientes</h1>
 <br>
 <h2>Cadastro de Cliente</h2>
-<!--
-<dx-text-box placeholder="Codigo"></dx-text-box>
-<br>
-<dx-text-box placeholder="Nome"></dx-text-box>
-<br>
-<dx-button text="Enviar" width="100%"></dx-button>
-<br>
-<br>
-<br>
-<br>
-<br>
--->
+
 <dx-data-grid
-  [dataSource]="clientes">
+  [dataSource]="clientes"
+
+  (onRowInserted)="adicionarCliente($event.data)"
+  (onRowUpdated)="atualizarCliente($event.data)"
+  (onRowRemoved)="excluirCliente($event.data)"
+  >
   <dxo-editing
-    mode="popup"
+    mode="row"
     [allowUpdating]="true"
     [allowDeleting]="true"
     [allowAdding]="true">
-  </dxo-editing>
-</dx-data-grid>
-<!--
-<dx-button text="Deletar" width="50%"></dx-button>
-<dx-button text="Modificar" width="50%"></dx-button>
--->
 
+  </dxo-editing>
+
+  <dxi-column dataField="codigo" width="200px"></dxi-column>
+  <dxi-column dataField="nome" ></dxi-column>
+
+</dx-data-grid>
+<!--[refreshMode]="refreshMode"//onrow123-->
+
+
+<!--
+
+  -->

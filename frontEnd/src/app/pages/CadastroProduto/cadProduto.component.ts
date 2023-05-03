@@ -14,8 +14,28 @@ export class CadProdutoComponent implements OnInit{
     constructor(private service: ProdutoService) {}
 
   ngOnInit() {
-    this.service.getProdutos().subscribe(dados => {
+    this.getProdutos();
+    }
+
+  getProdutos() {
+    this.service.getProdutos().subscribe((dados) => {
       this.produtos = dados;
+    });
+  }
+
+  adicionarProduto(novoProduto: any) {
+    this.service.adicionarProduto(novoProduto).subscribe((produto) => {
+      this.produtos.push(produto);
+    });
+  }
+
+  atualizarProduto(produto: Produto) {
+    this.service.atualizarProduto(produto).subscribe();
+  }
+
+  excluirProduto(produto: Produto) {
+    this.service.excluirProduto(produto).subscribe(() => {
+      this.produtos = this.produtos.filter((c) => c !== produto);
     });
   }
 }

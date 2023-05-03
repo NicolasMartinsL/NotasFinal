@@ -1,34 +1,28 @@
 <p>nota fiscal</p>
 <br>
 <h1>Cadastro de Notas Fiscais</h1>
-<!--
-<dx-text-box placeholder="Numero"></dx-text-box>
-<br>
-<dx-text-box placeholder="Data"></dx-text-box>
-<br>
-<dx-text-box placeholder="Valor"></dx-text-box>
-<br>
-<dx-text-box placeholder="Cliente"></dx-text-box>
-<br>
-<dx-text-box placeholder="Item"></dx-text-box>
-<br>
-<dx-button text="Enviar" width="100%"></dx-button>
-<br>
-<br>
-<br>
-<br>
-<br>
--->
+
 <dx-data-grid
-  [dataSource]="notas">
+  [dataSource]="notas"
+
+  (onRowInserted)="adicionarNota($event.data)"
+  (onRowUpdated)="atualizarNota($event.data)"
+  (onRowRemoved)="excluirNota($event.data)"
+  >
   <dxo-editing
-    mode="popup"
+    mode="row"
     [allowUpdating]="true"
     [allowDeleting]="true"
     [allowAdding]="true">
   </dxo-editing>
+
+  <dxi-column dataField="numero"></dxi-column>
+  <dxi-column dataField="data"></dxi-column>
+  <dxi-column dataField="valor"></dxi-column>
+  <dxi-column dataField="cliente" cellTemplate="cellTemplateCliente"></dxi-column>
+  <div *dxTemplate="let data of 'cellTemplateCliente'">{{data.value ? data.value.nome : "vazio"}}</div>
+  <dxi-column dataField="itens"></dxi-column>
+
+
 </dx-data-grid>
-<!--
-<dx-button text="Modificar" width="50%"></dx-button>
-<dx-button text="Deletar" width="50%"></dx-button>
--->
+

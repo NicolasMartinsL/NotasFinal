@@ -18,4 +18,19 @@ export class ClienteService {
   getClientes(): Observable<Cliente[]>{
     return this.httpClient.get<Cliente[]>(this.link);
   }
+
+  adicionarCliente(cliente: Cliente): Observable<Cliente> {
+    return this.httpClient.post<Cliente>(this.link, cliente);
+  }
+
+  atualizarCliente(cliente: Cliente): Observable<Cliente> {
+    const url = `${this.link}/${cliente.id}`;
+    return this.httpClient.put<Cliente>(url, cliente);
+  }
+
+  excluirCliente(cliente: Cliente): Observable<Cliente> {
+    const url = `${this.link}/${cliente.id}`;
+    return this.httpClient.delete<Cliente>(url);
+  }
+
 }

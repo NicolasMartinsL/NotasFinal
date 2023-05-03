@@ -1,12 +1,7 @@
 package br.com.projeto.NotasFiscais.model;
 
 import java.math.BigDecimal;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_item")
@@ -16,9 +11,15 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer id;
+
+
+	@ManyToOne
+	public Nota nota;
+
+
 	public Integer numero;
-	@OneToOne
-	public Produto produtos;
+	@ManyToOne
+	public Produto produto;
 	public	BigDecimal quantidade;
 	public BigDecimal valor;
 	
@@ -36,10 +37,10 @@ public class Item {
 		this.numero = numero;
 	}
 	public Produto getProdutos() {
-		return produtos;
+		return produto;
 	}
 	public void setProdutos(Produto produtos) {
-		this.produtos = produtos;
+		this.produto = produtos;
 	}
 	public BigDecimal getQuantidade() {
 		return quantidade;
@@ -53,5 +54,13 @@ public class Item {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-	
+
+
+	public Nota getNotas() {
+		return nota;
+	}
+
+	public void setNotas(Nota notas) {
+		this.nota = notas;
+	}
 }

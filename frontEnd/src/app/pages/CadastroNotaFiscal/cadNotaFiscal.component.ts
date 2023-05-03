@@ -14,8 +14,28 @@ export class CadNotaFiscalComponent implements OnInit{
   constructor(private service: NotaFiscalService) {}
 
   ngOnInit() {
-    this.service.getNotas().subscribe(dados => {
+    this.getNotas();
+  }
+
+  getNotas() {
+    this.service.getNotas().subscribe((dados) => {
       this.notas = dados;
+    });
+  }
+
+  adicionarNota(novaNota: any) {
+    this.service.adicionarNota(novaNota).subscribe((nota) => {
+      this.notas.push(nota);
+    });
+  }
+
+  atualizarNota(nota: Nota) {
+    this.service.atualizarNota(nota).subscribe();
+  }
+
+  excluirNota(nota: Nota) {
+    this.service.excluirNota(nota).subscribe(() => {
+      this.notas = this.notas.filter((c) => c !== nota);
     });
   }
 }
