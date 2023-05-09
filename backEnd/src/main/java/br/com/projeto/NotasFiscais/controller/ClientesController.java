@@ -36,16 +36,19 @@ public class ClientesController {
 	
 	@GetMapping("/{id}")
 	public @ResponseBody Optional<Cliente> listarPorId(@PathVariable Integer id) {
+
 		return repository.findById(id);
 	}
 	
 	@PutMapping
 	public @ResponseBody Cliente alterar(@RequestBody Cliente dados) {
+
 		return repository.save(dados);
 	}
 	
 	@DeleteMapping("/{id}")
 	public @ResponseBody void remover(@PathVariable Integer id) {
+
 		this.repository.deleteById(id);
 	}
 }

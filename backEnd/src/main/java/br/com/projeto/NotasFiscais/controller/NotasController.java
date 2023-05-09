@@ -31,6 +31,7 @@ public class NotasController {
 
 	@GetMapping
 	public @ResponseBody List<Nota> listar(){
+
 		return repository.findAll();
 	}
 	

@@ -18,9 +18,12 @@ public class Item {
 
 
 	public Integer numero;
+
 	@ManyToOne
 	public Produto produto;
+
 	public	BigDecimal quantidade;
+
 	public BigDecimal valor;
 	
 	
