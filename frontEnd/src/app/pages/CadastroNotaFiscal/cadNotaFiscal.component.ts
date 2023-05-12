@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NotaFiscalService} from "../../shared/services/servicos/notafiscal.service";
 import {Nota} from "../../model/nota";
+import {Item} from "../../model/item";
 
 @Component({
   selector: 'app-Cadastros',
@@ -11,10 +12,19 @@ import {Nota} from "../../model/nota";
 export class CadNotaFiscalComponent implements OnInit{
 
   notas: Nota[] = [];
+  itens: Item[] = [];
+
   constructor(private service: NotaFiscalService) {}
 
   ngOnInit() {
     this.getNotas();
+    this.getItens();
+  }
+
+  getItens() {
+    this.service.getItens().subscribe((dados) => {
+      this.itens = dados;
+    });
   }
 
   getNotas() {

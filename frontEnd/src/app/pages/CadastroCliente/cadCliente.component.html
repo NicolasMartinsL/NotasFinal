@@ -7,10 +7,13 @@
 
   (onRowInserted)="adicionarCliente($event.data)"
   (onRowUpdated)="atualizarCliente($event.data)"
+  (onRowUpdating)="atualizandoCliente($event.value)"
   (onRowRemoved)="excluirCliente($event.data)"
+  (onSaving)="atualizandoCliente($event.value)"
+  (onSaved)="atualizandoCliente($event.value)"
   >
   <dxo-editing
-    mode="row"
+    mode="popup"
     [allowUpdating]="true"
     [allowDeleting]="true"
     [allowAdding]="true">
@@ -21,9 +24,4 @@
   <dxi-column dataField="nome" ></dxi-column>
 
 </dx-data-grid>
-<!--[refreshMode]="refreshMode"//onrow123-->
 
-
-<!--
-
-  -->

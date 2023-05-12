@@ -24,8 +24,8 @@ export class ProdutoService {
   }
 
   atualizarProduto(produto: Produto): Observable<Produto> {
-    const url = `${this.link}/${produto.id}`;
-    return this.httpClient.put<Produto>(url, produto);
+    //const url = `${this.link}/${produto.id}`;
+    return this.httpClient.put<Produto>(this.link, produto);
   }
 
   excluirProduto(produto: Produto): Observable<Produto> {

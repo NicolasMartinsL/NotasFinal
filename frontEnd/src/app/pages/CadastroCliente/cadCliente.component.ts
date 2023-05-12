@@ -3,6 +3,8 @@ import {ClienteService} from "../../shared/services/servicos/cliente.service";
 import {Cliente} from "../../model/cliente";
 
 
+
+
 @Component({
   selector: 'app-Cadastros',
   templateUrl: 'cadCliente.component.html',
@@ -30,14 +32,26 @@ export class CadClienteComponent implements OnInit{
     });
   }
 
-  atualizarCliente(cliente: Cliente) {
-    this.service.atualizarCliente(cliente).subscribe();
+  atualizarCliente(clienteNovo: Cliente) {
+    console.log(clienteNovo);
+    this.service.atualizarCliente(clienteNovo).subscribe((cliente)=>{
+      cliente.id = clienteNovo.id
+      cliente.nome = clienteNovo.nome
+      cliente.codigo = clienteNovo.codigo
+    });
+    console.log(clienteNovo);
   }
 
   excluirCliente(cliente: Cliente) {
+    console.log(cliente);
     this.service.excluirCliente(cliente).subscribe(() => {
       this.clientes = this.clientes.filter((c) => c !== cliente);
     });
   }
 
+  atualizandoCliente(cliente: Cliente){
+    console.log(cliente);
+    //this.service.atualizarCliente(cliente).subscribe();
+    //console.log(cliente);
+  }
 }

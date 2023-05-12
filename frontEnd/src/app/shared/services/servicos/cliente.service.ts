@@ -24,8 +24,8 @@ export class ClienteService {
   }
 
   atualizarCliente(cliente: Cliente): Observable<Cliente> {
-    const url = `${this.link}/${cliente.id}`;
-    return this.httpClient.put<Cliente>(url, cliente);
+    //const url = `${this.link}/${cliente.id}`;
+    return this.httpClient.put<Cliente>(this.link, cliente);
   }
 
   excluirCliente(cliente: Cliente): Observable<Cliente> {

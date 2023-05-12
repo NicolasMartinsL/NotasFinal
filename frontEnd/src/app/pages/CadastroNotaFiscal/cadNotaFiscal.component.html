@@ -10,19 +10,34 @@
   (onRowRemoved)="excluirNota($event.data)"
   >
   <dxo-editing
-    mode="row"
+    mode="popup"
     [allowUpdating]="true"
     [allowDeleting]="true"
     [allowAdding]="true">
+
+    <dxi-item caption="Outros" colCount="2" colSpan="2">
+      <dxi-item dataField="cliente"></dxi-item>
+      <dxi-item dataField="itens"></dxi-item>
+    </dxi-item>
   </dxo-editing>
+
 
   <dxi-column dataField="numero"></dxi-column>
   <dxi-column dataField="data"></dxi-column>
   <dxi-column dataField="valor"></dxi-column>
   <dxi-column dataField="cliente" cellTemplate="cellTemplateCliente"></dxi-column>
   <div *dxTemplate="let data of 'cellTemplateCliente'">{{data.value ? data.value.nome : "vazio"}}</div>
-  <dxi-column dataField="itens"></dxi-column>
+
+
+
+  <dxi-column dataField="itens" caption="Item">
+    <dxi-column dataField="nota"></dxi-column>
+    <dxi-column dataField="numero"></dxi-column>
+    <dxi-column dataField="produto"></dxi-column>
+    <dxi-column dataField="quantidade"></dxi-column>
+    <dxi-column dataField="valor"></dxi-column>
+  </dxi-column>
+
 
 
 </dx-data-grid>
-

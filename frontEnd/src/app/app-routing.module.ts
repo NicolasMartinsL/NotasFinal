@@ -10,9 +10,9 @@ import {AuthGuardService} from "./shared/services";
 import {
     DxDataGridModule,
     DxListModule,
-    DxScrollViewModule,
+    DxScrollViewModule, DxSelectBoxModule,
     DxTextAreaModule,
-    DxTextBoxModule
+    DxTextBoxModule, DxTreeListModule
 } from "devextreme-angular";
 import {PrincipalComponent} from "./pages/principal/principal.component";
 import {CidadeEstadoModule} from "./shared/components/cidadeestado/cidade-estado.component";
@@ -76,7 +76,7 @@ const routes: Routes = [
         DxDataGridModule,
         DxFormModule,
         DxButtonModule,
-        CidadeEstadoModule, DxScrollViewModule, DxTextBoxModule, DxTextAreaModule, DxListModule
+        CidadeEstadoModule, DxScrollViewModule, DxTextBoxModule, DxTextAreaModule, DxListModule, DxSelectBoxModule, DxTreeListModule
     ],
   providers: [AuthGuardService],
   exports: [RouterModule],
