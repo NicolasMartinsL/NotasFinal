@@ -1,5 +1,3 @@
-<p>nota fiscal</p>
-<br>
 <h1>Cadastro de Notas Fiscais</h1>
 
 <dx-data-grid
@@ -7,6 +5,7 @@
 
   (onRowInserted)="adicionarNota($event.data)"
   (onRowUpdated)="atualizarNota($event.data)"
+  (onEditingStart)="atualizandoCliente($event)"
   (onRowRemoved)="excluirNota($event.data)"
   >
   <dxo-editing
@@ -15,29 +14,60 @@
     [allowDeleting]="true"
     [allowAdding]="true">
 
-    <dxi-item caption="Outros" colCount="2" colSpan="2">
+    <dxo-form colCount="2">
+      <dxi-item dataField="numero"></dxi-item>
+      <dxi-item dataField="data"></dxi-item>
+      <dxi-item dataField="valor"></dxi-item>
       <dxi-item dataField="cliente"></dxi-item>
-      <dxi-item dataField="itens"></dxi-item>
-    </dxi-item>
+      <dxi-item dataField="itens" [colSpan]="2"></dxi-item>
+    </dxo-form>
+
   </dxo-editing>
 
 
   <dxi-column dataField="numero"></dxi-column>
   <dxi-column dataField="data"></dxi-column>
   <dxi-column dataField="valor"></dxi-column>
-  <dxi-column dataField="cliente" cellTemplate="cellTemplateCliente"></dxi-column>
+  <dxi-column dataField="cliente" cellTemplate="cellTemplateCliente" editCellTemplate="editCellTemplateCliente"></dxi-column>
   <div *dxTemplate="let data of 'cellTemplateCliente'">{{data.value ? data.value.nome : "vazio"}}</div>
+  <div *dxTemplate="let data of 'editCellTemplateCliente'">
+    <dx-select-box [items]="clientes"
+                   displayExpr="nome"
+                   [(value)]="data.value">
 
+    </dx-select-box>
+  </div>
 
+  <dxi-column dataField="itens" [visible]="false"  editCellTemplate="editCellTemplateItens"></dxi-column>
+  <div *dxTemplate="let data of 'editCellTemplateItens'">
+    <dx-data-grid [(dataSource)]="data.value"
+                  (onRowInserted)="adicionarItem($event.data)"
+                  (onRowUpdated)="atualizarItem($event.data)"
+                  (onEditingStart)="atualizandoProduto($event)"
+                  (onRowRemoved)="excluirItem($event.data)">
+      <dxo-editing
+        mode="row"
+        [allowUpdating]="true"
+        [allowDeleting]="true"
+        [allowAdding]="true">
+      </dxo-editing>
 
-  <dxi-column dataField="itens" caption="Item">
-    <dxi-column dataField="nota"></dxi-column>
-    <dxi-column dataField="numero"></dxi-column>
-    <dxi-column dataField="produto"></dxi-column>
-    <dxi-column dataField="quantidade"></dxi-column>
-    <dxi-column dataField="valor"></dxi-column>
-  </dxi-column>
+      <dxi-column dataField="nota"></dxi-column>
+      <dxi-column dataField="numero"></dxi-column>
+      <dxi-column dataField="produto" cellTemplate="cellTemplateProduto" editCellTemplate="editCellTemplateProduto"></dxi-column>
+      <div *dxTemplate="let data of 'cellTemplateProduto'">{{data.value ? data.value.descricao : "vazio"}}</div>
+      <div *dxTemplate="let data of 'editCellTemplateProduto'">
+        <dx-select-box [items]="produtos"
+                       displayExpr="descricao"
+                       [(value)]="data.value">
 
+        </dx-select-box>
+      </div>
+      <dxi-column dataField="quantidade"></dxi-column>
+      <dxi-column dataField="valor"></dxi-column>
+
+    </dx-data-grid>
+  </div>
 
 
 </dx-data-grid>
