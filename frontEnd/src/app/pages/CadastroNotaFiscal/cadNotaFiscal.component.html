@@ -4,6 +4,7 @@
   [dataSource]="notas"
 
   (onRowInserted)="adicionarNota($event.data)"
+  (onEditorPrepared)="prepararNota($event)"
   (onRowUpdated)="atualizarNota($event.data)"
   (onEditingStart)="atualizandoCliente($event)"
   (onRowRemoved)="excluirNota($event.data)"
@@ -19,7 +20,7 @@
       <dxi-item dataField="data"></dxi-item>
       <dxi-item dataField="valor"></dxi-item>
       <dxi-item dataField="cliente"></dxi-item>
-      <dxi-item dataField="itens" [colSpan]="2"></dxi-item>
+      <dxi-item dataField="itens" [colSpan]="2"></dxi-item>///////
     </dxo-form>
 
   </dxo-editing>
@@ -29,7 +30,7 @@
   <dxi-column dataField="data"></dxi-column>
   <dxi-column dataField="valor"></dxi-column>
   <dxi-column dataField="cliente" cellTemplate="cellTemplateCliente" editCellTemplate="editCellTemplateCliente"></dxi-column>
-  <div *dxTemplate="let data of 'cellTemplateCliente'">{{data.value ? data.value.nome : "vazio"}}</div>
+  <div *dxTemplate="let data of 'cellTemplateCliente'">{{data.value ? data.value.nome : "vazio"}}</div>////
   <div *dxTemplate="let data of 'editCellTemplateCliente'">
     <dx-select-box [items]="clientes"
                    displayExpr="nome"
@@ -38,13 +39,11 @@
     </dx-select-box>
   </div>
 
-  <dxi-column dataField="itens" [visible]="false"  editCellTemplate="editCellTemplateItens"></dxi-column>
+  <dxi-column dataField="itens" [visible]="false"  editCellTemplate="editCellTemplateItens"></dxi-column>/////
   <div *dxTemplate="let data of 'editCellTemplateItens'">
     <dx-data-grid [(dataSource)]="data.value"
-                  (onRowInserted)="adicionarItem($event.data)"
-                  (onRowUpdated)="atualizarItem($event.data)"
                   (onEditingStart)="atualizandoProduto($event)"
-                  (onRowRemoved)="excluirItem($event.data)">
+                  (onEditorPrepared)="prepararNota($event)">
       <dxo-editing
         mode="row"
         [allowUpdating]="true"
@@ -52,9 +51,9 @@
         [allowAdding]="true">
       </dxo-editing>
 
-      <dxi-column dataField="nota"></dxi-column>
       <dxi-column dataField="numero"></dxi-column>
-      <dxi-column dataField="produto" cellTemplate="cellTemplateProduto" editCellTemplate="editCellTemplateProduto"></dxi-column>
+      <dxi-column
+        dataField="produto" cellTemplate="cellTemplateProduto" editCellTemplate="editCellTemplateProduto"></dxi-column>////
       <div *dxTemplate="let data of 'cellTemplateProduto'">{{data.value ? data.value.descricao : "vazio"}}</div>
       <div *dxTemplate="let data of 'editCellTemplateProduto'">
         <dx-select-box [items]="produtos"
@@ -71,3 +70,5 @@
 
 
 </dx-data-grid>
+<!--oneditorprepared()setvalue-->
+<!--setar: id,nota,-->
