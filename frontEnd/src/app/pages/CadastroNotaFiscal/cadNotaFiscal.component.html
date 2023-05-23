@@ -2,11 +2,10 @@
 
 <dx-data-grid
   [dataSource]="notas"
-
-  (onRowInserted)="adicionarNota($event.data)"
-
-  (onRowUpdated)="atualizarNota($event.data)"
+  (onInitNewRow)="onInitNewRowNota($event)"
   (onEditingStart)="atualizandoCliente($event)"
+  (onRowInserted)="adicionarNota($event.data)"
+  (onRowUpdated)="atualizarNota($event.data)"
   (onRowRemoved)="excluirNota($event.data)"
   >
   <dxo-editing
@@ -20,33 +19,32 @@
       <dxi-item dataField="data"></dxi-item>
       <dxi-item dataField="valor"></dxi-item>
       <dxi-item dataField="cliente"></dxi-item>
-      <dxi-item dataField="itens" [colSpan]="2"></dxi-item>///////
+      <dxi-item dataField="itens" [colSpan]="2"></dxi-item>
     </dxo-form>
 
   </dxo-editing>
-
 
   <dxi-column dataField="numero"></dxi-column>
   <dxi-column dataField="data"></dxi-column>
   <dxi-column dataField="valor"></dxi-column>
   <dxi-column dataField="cliente" cellTemplate="cellTemplateCliente" editCellTemplate="editCellTemplateCliente"></dxi-column>
-  <div *dxTemplate="let data of 'cellTemplateCliente'">{{data.value ? data.value.nome : "vazio"}}</div>////
+  <dxi-column dataField="itens" [visible]="false"  editCellTemplate="editCellTemplateItens"></dxi-column>
+
+  <div *dxTemplate="let data of 'cellTemplateCliente'">{{data.value ? data.value.nome : "vazio"}}</div>
   <div *dxTemplate="let data of 'editCellTemplateCliente'">
     <dx-select-box [items]="clientes"
                    displayExpr="nome"
-                   [(value)]="data.value"
-                   (onValueChanged)="onValueChangedCliente(data.value)">
-
+                   [value]="data.value"
+                   (valueChange)="valueChangeCliente($event, data)"
+                  >
     </dx-select-box>
   </div>
 
-  <dxi-column dataField="itens" [visible]="false"  editCellTemplate="editCellTemplateItens"></dxi-column>/////
   <div *dxTemplate="let data of 'editCellTemplateItens'">
-    <dx-data-grid [(dataSource)]="data.value"
+    <dx-data-grid [dataSource]="data.value"
+                  (dataSourceChange)="ondataSourceChangeItens($event, data)"
                   (onEditingStart)="atualizandoProduto($event)"
-                  (onRowUpdated)="adicionarItem($event.data)"
-                  (onSaving)="NotaSaving($event)"
-                  (onSaved)="NotaSaved(data)">
+                  >
       <dxo-editing
         mode="row"
         [allowUpdating]="true"
@@ -56,17 +54,19 @@
 
       <dxi-column dataField="numero"></dxi-column>
       <dxi-column dataField="produto" cellTemplate="cellTemplateProduto" editCellTemplate="editCellTemplateProduto"></dxi-column>////
+      <dxi-column dataField="quantidade"></dxi-column>
+      <dxi-column dataField="valor"></dxi-column>
+
       <div *dxTemplate="let data of 'cellTemplateProduto'">{{data.value.descricao}}</div>
       <div *dxTemplate="let data of 'editCellTemplateProduto'">
         <dx-select-box [items]="produtos"
                        displayExpr="descricao"
-                       [(value)]="data.value"
-                       (onValueChanged)="onValueChangedProduto(data.value)">
+                       [value]="data.value"
+                       (valueChange)="valueChangeProduto($event, data)"
+        >
 
         </dx-select-box>
       </div>
-      <dxi-column dataField="quantidade"></dxi-column>
-      <dxi-column dataField="valor"></dxi-column>
 
     </dx-data-grid>
   </div>

@@ -23,8 +23,8 @@ export class CadNotaFiscalComponent implements OnInit {
   notas: Nota[] = [];
   clientes: Cliente[] = [];
   produtos: Produto[] = [];
-  itens: Item[] = [];
-  NovoItem = new Item;
+  // itens: Item[] = [];
+  // NovoItem = new Item;
 
   constructor(private notaFiscalService: NotaFiscalService,
               private clienteService: ClienteService,
@@ -35,23 +35,7 @@ export class CadNotaFiscalComponent implements OnInit {
   ngOnInit() {
     this.getNotas();
     this.getClientes();
-    this.getItens();
     this.getProdutos();
-  }
-
-  atualizandoCliente(event: any) {
-    for (let cliente of this.clientes) {
-      if (cliente.id == event.data.cliente.id) {
-        event.data.cliente = cliente;
-        return;
-      }
-    }
-  }
-
-  getClientes() {
-    this.clienteService.getClientes().subscribe((dados) => {
-      this.clientes = dados;
-    });
   }
 
   getNotas() {
@@ -60,6 +44,19 @@ export class CadNotaFiscalComponent implements OnInit {
     });
   }
 
+  getClientes() {
+    this.clienteService.getClientes().subscribe((dados) => {
+      this.clientes = dados;
+    });
+  }
+
+  getProdutos() {
+    this.produtoService.getProdutos().subscribe((dados) => {
+      this.produtos = dados;
+    });
+  }
+
+  /* Salvando */
   adicionarNota(novaNota: any) {
     console.log(novaNota)
 
@@ -79,30 +76,23 @@ export class CadNotaFiscalComponent implements OnInit {
     });
   }
 
-  getItens() {
-    this.itemService.getItens().subscribe((dados) => {
-      this.itens = dados;
-    });
+  /* fim salvar*/
+
+  onInitNewRowNota(event: any) {
+    if(!event.data.itens){
+      event.data.itens = [];
+    }
   }
 
-  adicionarItem(novoItem: any) {
-    console.log(novoItem)
-    this.itemService.adicionarItem(novoItem).subscribe((item) => {
-      this.itens.push(item);
-      console.log(item)
-    });
-  }
-  /*
-  atualizarItem(item: Item) {
-    this.itemService.atualizarItem(item).subscribe();
+  atualizandoCliente(event: any) {
+    for (let cliente of this.clientes) {
+      if (cliente.id == event.data.cliente.id) {
+        event.data.cliente = cliente;
+        return;
+      }
+    }
   }
 
-  excluirItem(item: Item) {
-    this.itemService.excluirItem(item).subscribe(() => {
-      this.itens = this.itens.filter((c) => c !== item);
-    });
-  }
-  */
   atualizandoProduto(event: any) {
     console.log(event)
     for (let produto of this.produtos) {
@@ -114,53 +104,16 @@ export class CadNotaFiscalComponent implements OnInit {
     }
   }
 
-  getProdutos() {
-    this.produtoService.getProdutos().subscribe((dados) => {
-      this.produtos = dados;
-    });
+  valueChangeCliente(cliente: Cliente, data: any) {
+    data.setValue(cliente);
   }
 
-  NotaSaving(event: any) {
-    console.log(event);
-    if(event.data == null){
-      this.NovoItem = event.changes.data[0]
-      console.log(this.NovoItem);
-      event.data.setValue(event.changes.data[0]);
-    }
-    console.log(event.data);
+  valueChangeProduto(produto: Produto, data: any) {
+    data.setValue(produto)
   }
-  NotaSaved(data: any) {
-    console.log(data)
-    console.log(data.key.id);
-    const n = data.data.itens.length;
-    console.log(data.data.itens);
-    console.log(data.data.cliente);
-    data.data.itens[n].id.setValue(n + 1);
-    data.data.itens[n].nota.setValue(data.key.id);
-  }
-  onValueChangedProduto(data: any){
-    console.log(data)
-    /*
-    for (let produto of this.produtos) {
-      if (produto.id == data.id) {
-        data = produto;
-        return;
-      }
-    }
-     */
 
-  }
-  onValueChangedCliente(data: any){
-    console.log(data)
-    /*
-    for (let produto of this.produtos) {
-      if (produto.id == data.id) {
-        data = produto;
-        return;
-      }
-    }
-     */
-
+  ondataSourceChangeItens(event: any, data: any) {
+    data.setValue(event);
   }
 
 }
