@@ -8,6 +8,10 @@ import {Produto} from "../../model/produto";
 import {ProdutoService} from "../../shared/services/servicos/produto.service";
 import {ItemService} from "../../shared/services/servicos/item.service";
 
+
+
+
+
 @Component({
   selector: 'app-Cadastros',
   templateUrl: 'cadNotaFiscal.component.html',
@@ -20,6 +24,7 @@ export class CadNotaFiscalComponent implements OnInit {
   clientes: Cliente[] = [];
   produtos: Produto[] = [];
   itens: Item[] = [];
+  NovoItem = new Item;
 
   constructor(private notaFiscalService: NotaFiscalService,
               private clienteService: ClienteService,
@@ -56,6 +61,8 @@ export class CadNotaFiscalComponent implements OnInit {
   }
 
   adicionarNota(novaNota: any) {
+    console.log(novaNota)
+
     this.notaFiscalService.adicionarNota(novaNota).subscribe((nota) => {
       this.notas.push(nota);
       console.log(nota)
@@ -63,7 +70,6 @@ export class CadNotaFiscalComponent implements OnInit {
   }
 
   atualizarNota(nota: Nota) {
-    debugger
     this.notaFiscalService.atualizarNota(nota).subscribe();
   }
 
@@ -80,11 +86,13 @@ export class CadNotaFiscalComponent implements OnInit {
   }
 
   adicionarItem(novoItem: any) {
+    console.log(novoItem)
     this.itemService.adicionarItem(novoItem).subscribe((item) => {
       this.itens.push(item);
+      console.log(item)
     });
   }
-
+  /*
   atualizarItem(item: Item) {
     this.itemService.atualizarItem(item).subscribe();
   }
@@ -94,7 +102,7 @@ export class CadNotaFiscalComponent implements OnInit {
       this.itens = this.itens.filter((c) => c !== item);
     });
   }
-
+  */
   atualizandoProduto(event: any) {
     console.log(event)
     for (let produto of this.produtos) {
@@ -112,16 +120,47 @@ export class CadNotaFiscalComponent implements OnInit {
     });
   }
 
-  prepararNota(event: any) {
-    if (event.id === null) {
-      event.editorOptions.setValue('');//id na sequencia
+  NotaSaving(event: any) {
+    console.log(event);
+    if(event.data == null){
+      this.NovoItem = event.changes.data[0]
+      console.log(this.NovoItem);
+      event.data.setValue(event.changes.data[0]);
     }
-    if (event.nota === null) {
-      event.editorOptions.setValue('');//1 ou dois
+    console.log(event.data);
+  }
+  NotaSaved(data: any) {
+    console.log(data)
+    console.log(data.key.id);
+    const n = data.data.itens.length;
+    console.log(data.data.itens);
+    console.log(data.data.cliente);
+    data.data.itens[n].id.setValue(n + 1);
+    data.data.itens[n].nota.setValue(data.key.id);
+  }
+  onValueChangedProduto(data: any){
+    console.log(data)
+    /*
+    for (let produto of this.produtos) {
+      if (produto.id == data.id) {
+        data = produto;
+        return;
+      }
     }
-    if (event.produto === null) {
-      event.editorOptions.setValue('');//talvez
+     */
+
+  }
+  onValueChangedCliente(data: any){
+    console.log(data)
+    /*
+    for (let produto of this.produtos) {
+      if (produto.id == data.id) {
+        data = produto;
+        return;
+      }
     }
+     */
+
   }
 
 }
