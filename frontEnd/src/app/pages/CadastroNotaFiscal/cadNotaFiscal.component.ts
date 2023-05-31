@@ -23,8 +23,8 @@ export class CadNotaFiscalComponent implements OnInit {
   notas: Nota[] = [];
   clientes: Cliente[] = [];
   produtos: Produto[] = [];
-  // itens: Item[] = [];
-  // NovoItem = new Item;
+  itens: Item[] = [];
+  //NovoItem = new Item;
 
   constructor(private notaFiscalService: NotaFiscalService,
               private clienteService: ClienteService,
@@ -36,17 +36,18 @@ export class CadNotaFiscalComponent implements OnInit {
     this.getNotas();
     this.getClientes();
     this.getProdutos();
-  }
-
-  getNotas() {
-    this.notaFiscalService.getNotas().subscribe((dados) => {
-      this.notas = dados;
-    });
+    this.getItens();
   }
 
   getClientes() {
     this.clienteService.getClientes().subscribe((dados) => {
       this.clientes = dados;
+    });
+  }
+
+  getNotas() {
+    this.notaFiscalService.getNotas().subscribe((dados) => {
+      this.notas = dados;
     });
   }
 
@@ -56,7 +57,6 @@ export class CadNotaFiscalComponent implements OnInit {
     });
   }
 
-  /* Salvando */
   adicionarNota(novaNota: any) {
     console.log(novaNota)
 
@@ -74,14 +74,6 @@ export class CadNotaFiscalComponent implements OnInit {
     this.notaFiscalService.excluirNota(nota).subscribe(() => {
       this.notas = this.notas.filter((c) => c !== nota);
     });
-  }
-
-  /* fim salvar*/
-
-  onInitNewRowNota(event: any) {
-    if(!event.data.itens){
-      event.data.itens = [];
-    }
   }
 
   atualizandoCliente(event: any) {
@@ -104,16 +96,97 @@ export class CadNotaFiscalComponent implements OnInit {
     }
   }
 
-  valueChangeCliente(cliente: Cliente, data: any) {
+  /*
+  getItens() {
+    this.itemService.getItens().subscribe((dados) => {
+      this.itens = dados;
+    });
+  }
+
+  adicionarItem(novoItem: any) {
+    console.log(novoItem)
+    this.itemService.adicionarItem(novoItem).subscribe((item) => {
+      this.itens.push(item);
+      console.log(item)
+    });
+  }
+
+  atualizarItem(item: Item) {
+    this.itemService.atualizarItem(item).subscribe();
+  }
+
+  excluirItem(item: Item) {
+    this.itemService.excluirItem(item).subscribe(() => {
+      this.itens = this.itens.filter((c) => c !== item);
+    });
+  }
+
+  NotaSaving(event: any) {
+    console.log(event);
+    if(event.data == null){
+      this.NovoItem = event.changes.data[0]
+      console.log(this.NovoItem);
+      event.data.setValue(event.changes.data[0]);
+    }
+    console.log(event.data);
+  }
+
+  onValueChangedProduto(data: any){
+    console.log(data)
+    /*
+    for (let produto of this.produtos) {
+      if (produto.id == data.id) {
+        data = produto;
+        return;
+      }
+    }
+  }
+ */
+
+  valueChangeCliente(cliente: Cliente, data: any){
     data.setValue(cliente);
   }
 
-  valueChangeProduto(produto: Produto, data: any) {
-    data.setValue(produto)
+  valueChangeProduto(produto: Produto, data: any){
+    data.setValue(produto);
   }
 
-  ondataSourceChangeItens(event: any, data: any) {
+  onInitNewRowNota(event:any){
+    if(!event.data.itens){
+      event.data.itens = [];
+    }
+  }
+
+  dataSourceChangeItens(event: any, data: any){
+    //console.log(event);
+    //console.log(data);
     data.setValue(event);
+  }
+
+  onRowRemoved(event: any, data: any):void{
+    console.log(event);
+    console.log(data);
+    //data.produto.setValue(data.data.produtos);
+    const index = data.value.indexOf(event);
+    if (index !== -1) {
+      data.value.splice(index, 1);
+    }
+  }
+
+  calcularValorTotal(itens: Item[]) {
+    /*let total = 0;
+    console.log(itens);
+    for (const item of itens) {
+      if (itens != null) {
+        total += (<number>item.valor * <number>item.quantidade);
+      }
+    }
+    return total;*/
+  }
+  getItens() {
+    this.itemService.getItens().subscribe((dados) => {
+      this.itens = dados;
+    });
   }
 
 }

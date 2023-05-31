@@ -28,8 +28,9 @@ public class NotasController {
 
 	@PostMapping
 	public @ResponseBody void cadastrar(@RequestBody Nota nota){
+
 		for (Item iten : nota.itens) {
-			if(iten.nota==null){
+			if(iten.nota == null){
 				iten.nota = nota;
 			}
 		}
@@ -39,29 +40,28 @@ public class NotasController {
 
 	@GetMapping
 	public @ResponseBody List<Nota> listar(){
-
 		return repository.findAll();
 	}
 	
 	@GetMapping("/{id}")
 	public @ResponseBody Optional<Nota> listarPorId(@PathVariable Integer id) {
-
 		return repository.findById(id);
 	}
 	
 	@PutMapping
 	public @ResponseBody Nota alterar(@RequestBody Nota nota) {
+
 		for (Item iten : nota.itens) {
-			if(iten.nota==null){
+			if(iten.nota == null){
 				iten.nota = nota;
 			}
 		}
+
 		return repository.save(nota);
 	}
 	
 	@DeleteMapping("/{id}")
 	public @ResponseBody void remover(@PathVariable Integer id) {
-
 		this.repository.deleteById(id);
 	}
 }
