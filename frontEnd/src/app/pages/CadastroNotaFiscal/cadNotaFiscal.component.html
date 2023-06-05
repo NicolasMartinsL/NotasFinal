@@ -49,7 +49,8 @@
     <dx-data-grid [(dataSource)]="data.value"
                   (onEditingStart)="atualizandoProduto($event)"
                   (dataSourceChange)="dataSourceChangeItens($event,data)"
-                  (onRowRemoved)="onRowRemoved($event.data.key,data)">
+                  (onRowRemoved)="onRowRemoved($event.data.key,data)"
+                  >
 
       <dxo-editing
         mode="row"

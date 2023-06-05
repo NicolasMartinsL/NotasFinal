@@ -50,14 +50,15 @@ public class NotasController {
 	
 	@PutMapping
 	public @ResponseBody Nota alterar(@RequestBody Nota nota) {
-
+		Nota atual = repository.findById(nota.getId()).get();
 		for (Item iten : nota.itens) {
 			if(iten.nota == null){
 				iten.nota = nota;
 			}
 		}
-
-		return repository.save(nota);
+		nota = repository.save(nota);
+		atual = repository.findById(nota.getId()).get();
+		return nota;
 	}
 	
 	@DeleteMapping("/{id}")

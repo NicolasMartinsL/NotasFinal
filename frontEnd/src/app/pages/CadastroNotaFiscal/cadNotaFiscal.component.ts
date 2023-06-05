@@ -67,7 +67,14 @@ export class CadNotaFiscalComponent implements OnInit {
   }
 
   atualizarNota(nota: Nota) {
-    this.notaFiscalService.atualizarNota(nota).subscribe();
+    this.notaFiscalService.atualizarNota(nota).subscribe(x => {
+      console.log(x);
+      for (let nota1 of this.notas) {
+        if(x.id == nota1.id){
+          nota1 = x;
+        }
+      }
+    });
   }
 
   excluirNota(nota: Nota) {
