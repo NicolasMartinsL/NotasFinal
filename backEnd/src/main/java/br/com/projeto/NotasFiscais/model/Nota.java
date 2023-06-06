@@ -24,7 +24,7 @@ public class Nota {
 	@ManyToOne
 	public	Cliente cliente;
 
-	@OneToMany(mappedBy = "nota", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "nota", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
 	public List<Item> itens;
 	
 	

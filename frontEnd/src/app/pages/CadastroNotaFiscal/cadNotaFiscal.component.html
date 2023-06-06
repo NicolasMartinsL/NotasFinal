@@ -9,6 +9,7 @@
   (onEditingStart)="atualizandoCliente($event)"
   (onInitNewRow)="onInitNewRowNota($event)"
 
+
 >
   <dxo-editing
     mode="popup"
@@ -33,7 +34,7 @@
   <dxi-column [allowEditing]="false" dataField="valor" caption="Valor da Nota" editCellTemplate="editCellTemplateValor"></dxi-column>/////////
   <dxi-column dataField="itens" [visible]="false"  editCellTemplate="editCellTemplateItens"></dxi-column>
 
-  <div *dxTemplate="let data of 'editCellTemplateValor'">{{calcularValorTotal(data.data)}}</div>
+  <div *dxTemplate="let data of 'editCellTemplateValor'">{{calcularValorTotal(data.data.itens)}}</div>
 
   <div *dxTemplate="let data of 'cellTemplateCliente'">{{data.value ? data.value.nome : "vazio"}}</div>
   <div *dxTemplate="let data of 'editCellTemplateCliente'">
@@ -49,8 +50,9 @@
     <dx-data-grid [(dataSource)]="data.value"
                   (onEditingStart)="atualizandoProduto($event)"
                   (dataSourceChange)="dataSourceChangeItens($event,data)"
-                  (onRowRemoved)="onRowRemoved($event.data.key,data)"
-                  >
+                  (onRowRemoved)="onRowRemoved($event.data,data)"
+                  (onFocusedCellChanged)="onFocusedRowChanged($event)"
+                  (onSaved)="onSaved($event,data)">
 
       <dxo-editing
         mode="row"

@@ -29,12 +29,12 @@ public class NotasController {
 	@PostMapping
 	public @ResponseBody void cadastrar(@RequestBody Nota nota){
 
-		for (Item iten : nota.itens) {
-			if(iten.nota == null){
-				iten.nota = nota;
+		for (Item item : nota.getItens()) {
+			if(item.nota == null){
+				item.nota = nota;
+				item.setNotas(nota);
 			}
 		}
-
 		repository.save(nota);
 	}
 
@@ -59,6 +59,7 @@ public class NotasController {
 		nota = repository.save(nota);
 		atual = repository.findById(nota.getId()).get();
 		return nota;
+
 	}
 	
 	@DeleteMapping("/{id}")

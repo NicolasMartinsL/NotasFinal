@@ -72,6 +72,7 @@ export class CadNotaFiscalComponent implements OnInit {
       for (let nota1 of this.notas) {
         if(x.id == nota1.id){
           nota1 = x;
+          console.log(nota1);
         }
       }
     });
@@ -171,8 +172,8 @@ export class CadNotaFiscalComponent implements OnInit {
   }
 
   onRowRemoved(event: any, data: any):void{
-    console.log(event);
-    console.log(data);
+    console.log(data.data.itens);
+    //.key
     //data.produto.setValue(data.data.produtos);
     const index = data.value.indexOf(event);
     if (index !== -1) {
@@ -180,20 +181,26 @@ export class CadNotaFiscalComponent implements OnInit {
     }
   }
 
-  calcularValorTotal(itens: Item[]) {
-    /*let total = 0;
-    console.log(itens);
-    for (const item of itens) {
-      if (itens != null) {
-        total += (<number>item.valor * <number>item.quantidade);
-      }
-    }
-    return total;*/
-  }
   getItens() {
     this.itemService.getItens().subscribe((dados) => {
       this.itens = dados;
     });
   }
 
+  onFocusedRowChanged(event: any){
+    console.log(event);
+  }
+
+  calcularValorTotal(itens: any[]): number {
+    let valorTotal = 0;
+
+    for (const item of itens) {
+      valorTotal += item.valor * item.quantidade;
+    }
+    return valorTotal;
+  }
+  onSaved(event:any,data:any) {
+    console.log(event);
+    console.log(data);
+  }
 }
